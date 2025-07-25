@@ -1,0 +1,23 @@
+components:
+  schemas:
+    TodoList:
+      type: object
+      required:
+        - name
+        - user_id
+        - status
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        user_id:
+          type: string
+        status:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time

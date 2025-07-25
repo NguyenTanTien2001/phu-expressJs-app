@@ -1,0 +1,45 @@
+{
+  "name": "templates",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "preinstall": "node ./check-node-version.js",
+    "dev": "tsx watch src/index.ts",
+    "build": "tsx scripts/build.ts",
+    "start": "node dist/index.js",
+    "export:swagger": "tsx scripts/export-swagger.ts"
+  },
+  "engines": {
+    "node": "22.15.1"
+  },
+  "engineStrict": true,
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@hphudev/utils": "^1.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.0",
+    "express": "^5.1.0",
+    "fs-extra": "^11.3.0",
+    "mongoose": "^8.16.4",
+    "semver": "^7.7.2",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
+    "ulid": "^3.0.1",
+    "yamljs": "^0.3.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^24.0.14",
+    "@types/semver": "^7.7.0",
+    "@types/swagger-jsdoc": "^6.0.4",
+    "@types/swagger-ui-express": "^4.1.8",
+    "@types/yamljs": "^0.2.34",
+    "tsx": "^4.20.3",
+    "typescript": "^5.8.3"
+  }
+}

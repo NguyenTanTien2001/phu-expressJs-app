@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",               // Hoặc "ES2019" nếu bạn dùng Node 12+
+    "module": "commonjs",             // Express dùng CommonJS
+    "moduleResolution": "node",
+    "esModuleInterop": true,          // Giúp import express từ CommonJS
+    "strict": true,                   // Kiểm tra chặt chẽ
+    "skipLibCheck": true,             // Bỏ qua lỗi trong file d.ts
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "dist",                 // Nơi chứa file .js sau build
+    "rootDir": "src",                 // Gốc mã nguồn
+    "resolveJsonModule": true,        // Cho phép import JSON (ví dụ config)
+    "allowSyntheticDefaultImports": true, // Giúp import default từ CommonJS
+    "noImplicitAny": true             // Không cho phép kiểu `any` ngầm định
+  },
+  "include": ["src"],
+  "exclude": ["node_modules"]
+}
