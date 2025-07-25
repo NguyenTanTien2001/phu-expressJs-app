@@ -7,34 +7,32 @@ const todoListRouter = Router()
 /**
  * @openapi
  * /todoLists:
- *  post:
- *    summary: Create a new todoList
- *    description: Creates a new todoList entry with the provided name.
- *    tags:
- *      - TodoList
- *    requestBody:
- *      required: true
- *      content:
- *        application/json:
- *         schema:
- *           type: object
- *           required:
- *             - title
- *           properties:
- *             title:
- *               type: string
- *               description: The name of the todoList to create.
- *    responses:
- *      201:
- *        description: TodoList created successfully
- *        content:
- *          application/json:
- *            schema:
- *              $ref: '#/components/schemas/TodoList'
- *      400:
- *        description: Invalid input
- *      500:
- *        description: Internal server error
+ *   post:
+ *     summary: Create a new todo list
+ *     tags:
+ *       - TodoList
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - name
+ *               - user_id
+ *               - status
+ *             properties:
+ *               name:
+ *                 type: string
+ *               user_id:
+ *                 type: string
+ *               status:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Todo list created successfully
+ *       400:
+ *         description: Invalid input
  */
 todoListRouter.post('/', todoListController.createTodoListHandler)
 
@@ -60,5 +58,82 @@ todoListRouter.post('/', todoListController.createTodoListHandler)
  */
 
 todoListRouter.get('/', todoListController.getTodoListsHandler)
+
+/**
+ * @openapi
+ * /todoLists/{id}:
+ *   get:
+ *     summary: Get a todo list by ID
+ *     tags:
+ *       - TodoList
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID of the todo list
+ *     responses:
+ *       200:
+ *         description: Todo list found
+ *       404:
+ *         description: Todo list not found
+ */
+todoListRouter.get('/:id', todoListController.getTodoListByIdHandler);
+
+/**
+ * @openapi
+ * /todoLists/{id}:
+ *   put:
+ *     summary: Update a todo list by ID
+ *     tags:
+ *       - TodoList
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               user_id:
+ *                 type: string
+ *               status:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Todo list updated
+ *       404:
+ *         description: Todo list not found
+ */
+todoListRouter.put('/:id', todoListController.updateTodoListHandler);
+
+/**
+ * @openapi
+ * /todoLists/{id}:
+ *   delete:
+ *     summary: Delete a todo list by ID
+ *     tags:
+ *       - TodoList
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Todo list deleted
+ *       404:
+ *         description: Todo list not found
+ */
+todoListRouter.delete('/:id', todoListController.deleteTodoListHandler);
 
 export default todoListRouter

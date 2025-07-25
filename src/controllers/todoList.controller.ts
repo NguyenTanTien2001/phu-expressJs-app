@@ -1,10 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
-import * as todoListService from '../services/todoList.service';
+import * as TodoListService from '../services/todoList.service';
 
 export const createTodoListHandler = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { name, user_id, status } = req.body;
-    const todoList = await todoListService.createTodoList(name, user_id, status);
+    const todoList = await TodoListService.createTodoList(name, user_id, status);
     res.status(201).json(todoList);
   } catch (error) {
     console.log("error ==> ", error);
@@ -13,10 +13,45 @@ export const createTodoListHandler = async (req: Request, res: Response, next: N
 };
 
 export const getTodoListsHandler = async (_req: Request, res: Response, next: NextFunction) => {
-    try {
-        const todoLists = await todoListService.getTodoLists();
-        res.json(todoLists);
-    } catch (error) {
-        next(error)
-    }
+  try {
+    const todoLists = await TodoListService.getTodoLists();
+    res.json(todoLists);
+  } catch (error) {
+    next(error)
+  }
+};
+
+export const getTodoListByIdHandler = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const TodoList = await TodoListService.getTodoListById(req.params.id);
+    if (!TodoList) return res.status(404).json({ error: 'Todo list not found' });
+    res.json(TodoList);
+  } catch (error) {
+    next(error)
+  }
+};
+
+export const updateTodoListHandler = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const todoListId = req.params.id;
+    const { name, user_id, status } = req.body;
+    const TodoList = await TodoListService.updateTodoList(todoListId, name, user_id, status);
+    if (!TodoList) return res.status(404).json({ error: 'Todo list not found' });
+    res.status(200).json({ message: 'Todo list updated successfully', TodoList });
+  } catch (error) {
+    console.log("error ==> ", error);
+    next(error)
+  }
+};
+
+export const deleteTodoListHandler = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const todoListId = req.params.id;
+    const TodoList = await TodoListService.deleteTodoList(todoListId);
+    if (!TodoList) return res.status(404).json({ error: 'Todo list not found' });
+    res.status(200).json({ message: 'Todo list deleted successfully', TodoList });
+  } catch (error) {
+    console.log("error ==> ", error);
+    next(error)
+  }
 };
