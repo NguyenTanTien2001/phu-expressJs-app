@@ -4,6 +4,7 @@ import testRouter from "./test.router";
 import userRouter from "./user.router";
 import todoItemRouter from "./todoItem.router";
 import todoListRouter from "./todoList.router";
+import accountRouter from "./account.router";
 
 const indexRouter = Router()
 
@@ -12,5 +13,6 @@ indexRouter.use('/tests', testRouter)
 indexRouter.use('/users', userRouter)
 indexRouter.use('/todoItems', todoItemRouter)
 indexRouter.use('/todoLists', todoListRouter)
+indexRouter.use('/account', accountRouter)
 
 export default indexRouter

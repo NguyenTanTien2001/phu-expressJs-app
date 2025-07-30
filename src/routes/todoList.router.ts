@@ -1,6 +1,7 @@
 
 import { Router } from "express";
 import * as todoListController from '../controllers/todoList.controller'
+import { authenticator } from '../middlewares/auth';
 
 const todoListRouter = Router()
 
@@ -34,7 +35,7 @@ const todoListRouter = Router()
  *       400:
  *         description: Invalid input
  */
-todoListRouter.post('/', todoListController.createTodoListHandler)
+todoListRouter.post('/', authenticator, todoListController.createTodoListHandler)
 
 /**
  * @openapi
@@ -57,7 +58,7 @@ todoListRouter.post('/', todoListController.createTodoListHandler)
  *         description: Internal server error
  */
 
-todoListRouter.get('/', todoListController.getTodoListsHandler)
+todoListRouter.get('/', authenticator, todoListController.getTodoListsHandler)
 
 /**
  * @openapi
@@ -79,7 +80,7 @@ todoListRouter.get('/', todoListController.getTodoListsHandler)
  *       404:
  *         description: Todo list not found
  */
-todoListRouter.get('/:id', todoListController.getTodoListByIdHandler);
+todoListRouter.get('/:id', authenticator, todoListController.getTodoListByIdHandler);
 
 /**
  * @openapi
@@ -113,7 +114,7 @@ todoListRouter.get('/:id', todoListController.getTodoListByIdHandler);
  *       404:
  *         description: Todo list not found
  */
-todoListRouter.put('/:id', todoListController.updateTodoListHandler);
+todoListRouter.put('/:id', authenticator, todoListController.updateTodoListHandler);
 
 /**
  * @openapi
@@ -134,6 +135,6 @@ todoListRouter.put('/:id', todoListController.updateTodoListHandler);
  *       404:
  *         description: Todo list not found
  */
-todoListRouter.delete('/:id', todoListController.deleteTodoListHandler);
+todoListRouter.delete('/:id', authenticator, todoListController.deleteTodoListHandler);
 
 export default todoListRouter

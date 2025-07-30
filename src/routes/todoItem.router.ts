@@ -1,6 +1,7 @@
 
 import { Router } from "express";
 import * as todoItemController from '../controllers/todoItem.controller'
+import { authenticator } from '../middlewares/auth';
 
 const todoItemRouter = Router()
 
@@ -40,7 +41,7 @@ const todoItemRouter = Router()
  *       400:
  *         description: Invalid input
  */
-todoItemRouter.post('/', todoItemController.createTodoItemHandler)
+todoItemRouter.post('/', authenticator, todoItemController.createTodoItemHandler)
 
 /**
  * @openapi
@@ -63,7 +64,7 @@ todoItemRouter.post('/', todoItemController.createTodoItemHandler)
  *         description: Internal server error
  */
 
-todoItemRouter.get('/', todoItemController.getTodoItemsHandler)
+todoItemRouter.get('/', authenticator, todoItemController.getTodoItemsHandler)
 
 /**
  * @openapi
@@ -86,7 +87,7 @@ todoItemRouter.get('/', todoItemController.getTodoItemsHandler)
  *         description: Todo item not found
  */
 
-todoItemRouter.get('/:id', todoItemController.getTodoItemByIdHandler);
+todoItemRouter.get('/:id', authenticator, todoItemController.getTodoItemByIdHandler);
 
 /**
  * @openapi
@@ -126,7 +127,7 @@ todoItemRouter.get('/:id', todoItemController.getTodoItemByIdHandler);
  *         description: Todo item not found
  */
 
-todoItemRouter.put('/:id', todoItemController.updateTodoItemHandler);
+todoItemRouter.put('/:id', authenticator, todoItemController.updateTodoItemHandler);
 
 /**
  * @openapi
@@ -148,6 +149,6 @@ todoItemRouter.put('/:id', todoItemController.updateTodoItemHandler);
  *         description: Todo item not found
  */
 
-todoItemRouter.delete('/:id', todoItemController.deleteTodoItemHandler);
+todoItemRouter.delete('/:id', authenticator, todoItemController.deleteTodoItemHandler);
 
 export default todoItemRouter

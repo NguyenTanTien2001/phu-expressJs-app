@@ -1,0 +1,43 @@
+components:
+  schemas:
+    Account:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: MongoDB ObjectId of the account
+          example: 64ef92f6a7dfe7001c0b7a63
+        user_id:
+          type: string
+          description: The ID of the associated user
+          example: 64ec91f6a7dfe7001c0b7a63
+        username:
+          type: string
+          description: Username of the account
+          example: johndoe
+        hashedPassword:
+          type: string
+          description: Hashed password for authentication
+          example: $2b$10$abc123...
+        accessToken:
+          type: string
+          description: Access token used for session or API
+          example: abc123xyz
+        status:
+          type: string
+          description: Status of the account
+          enum:
+            - Active
+            - Inactive
+            - Locked
+          example: Active
+        createdAt:
+          type: string
+          format: date-time
+          description: Timestamp of account creation
+          example: "2025-07-25T10:15:30.000Z"
+        updatedAt:
+          type: string
+          format: date-time
+          description: Timestamp of last account update
+          example: "2025-07-25T12:30:45.000Z"
