@@ -22,16 +22,11 @@ export function loadAllYAMLFromDir(dirPath: string): Record<string, any> {
   for (const file of yamlFiles) {
     const filePath = path.join(absolutePath, file);
     const yamlContent = YAML.load(filePath);
-    
+
     if (yamlContent?.components?.schemas) {
       Object.assign(merged, yamlContent.components.schemas); // ✅ merge only the schemas
     }
   }
-  
-  return {
-    components: {
-      schemas: 
-        merged,
-    },
-  };;
+
+  return merged
 }

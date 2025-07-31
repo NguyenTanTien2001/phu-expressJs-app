@@ -82,10 +82,9 @@ export const registerAccountHandler = async (req: Request, res: Response, next: 
 
         const account = await AccountService.createAccount(user._id as string, username, hashedPassword, '', 'active');
 
-        await account.save();
-
         res.status(201).json({ message: 'Account created successfully', accountId: account._id, userId: user._id });
     } catch (error) {
+        console.log(error);
         next(error);
     }
 };

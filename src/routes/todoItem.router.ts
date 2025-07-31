@@ -10,6 +10,8 @@ const todoItemRouter = Router()
  * /todoItems:
  *   post:
  *     summary: Create a new todo item
+ *     security:
+ *       - bearerAuth: []
  *     tags:
  *       - TodoItem
  *     requestBody:
@@ -49,6 +51,8 @@ todoItemRouter.post('/', authenticator, todoItemController.createTodoItemHandler
  *   get:
  *     summary: Get all todoItems
  *     description: Retrieve a list of all todoItems.
+ *     security:
+ *       - bearerAuth: []
  *     tags:
  *       - TodoItem
  *     responses:
@@ -71,6 +75,8 @@ todoItemRouter.get('/', authenticator, todoItemController.getTodoItemsHandler)
  * /todoItems/{id}:
  *   get:
  *     summary: Get a todo item by ID
+ *     security:
+ *       - bearerAuth: []
  *     tags:
  *       - TodoItem
  *     parameters:
@@ -94,6 +100,8 @@ todoItemRouter.get('/:id', authenticator, todoItemController.getTodoItemByIdHand
  * /todoItems/{id}:
  *   put:
  *     summary: Update a todo item by ID
+ *     security:
+ *       - bearerAuth: []
  *     tags:
  *       - TodoItem
  *     parameters:
@@ -134,6 +142,8 @@ todoItemRouter.put('/:id', authenticator, todoItemController.updateTodoItemHandl
  * /todoItems/{id}:
  *   delete:
  *     summary: Delete a todo item by ID
+ *     security:
+ *       - bearerAuth: []
  *     tags:
  *       - TodoItem
  *     parameters:

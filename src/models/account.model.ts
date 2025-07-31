@@ -15,7 +15,7 @@ const AccountSchema = new Schema<IAccount>(
         user_id: { type: String, required: true, ref: 'User' },
         username: { type: String, required: true },
         hashedPassword: { type: String, required: true },
-        accessToken: { type: String, required: true },
+        accessToken: { type: String },
         status: { type: String, required: true },
     },
     { timestamps: true }

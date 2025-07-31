@@ -12,8 +12,8 @@ import { User } from "../models/user.model";
  * @returns A promise that resolves to the created IAccount instance.
  */
 export const createAccount = async (user_id: string, username: string, hashedPassword: string, accessToken: string, status: string): Promise<IAccount> => {
-  const user = new Account({ user_id, username, hashedPassword, accessToken, status });
-  return await user.save();
+  const account = new Account({ user_id, username, hashedPassword, accessToken, status });
+  return await account.save();
 };
 
 /**

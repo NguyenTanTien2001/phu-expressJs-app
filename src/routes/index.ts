@@ -13,6 +13,6 @@ indexRouter.use('/tests', testRouter)
 indexRouter.use('/users', userRouter)
 indexRouter.use('/todoItems', todoItemRouter)
 indexRouter.use('/todoLists', todoListRouter)
-indexRouter.use('/account', accountRouter)
+indexRouter.use('/accounts', accountRouter)
 
 export default indexRouter

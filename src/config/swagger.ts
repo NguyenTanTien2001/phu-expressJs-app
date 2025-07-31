@@ -2,7 +2,7 @@ import swaggerJsDoc from 'swagger-jsdoc'
 import type { Options } from 'swagger-jsdoc';
 import { loadAllYAMLFromDir } from '../utils/loadYAMLs'
 
-const components = loadAllYAMLFromDir('../docs');
+const schemas = loadAllYAMLFromDir('../docs');
 const server_url = process.env.SERVER_URL ?? 'http://localhost:3000'
 
 export const swaggerOptions: Options = {
@@ -22,7 +22,23 @@ export const swaggerOptions: Options = {
         url: `${server_url}/api`,
       },
     ],
-    ...components
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
+        },
+      },
+      schemas: {
+        ...schemas
+      }
+    },
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
   },
   apis: ['./src/routes/*.ts'],
 };

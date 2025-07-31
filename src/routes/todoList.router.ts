@@ -10,6 +10,8 @@ const todoListRouter = Router()
  * /todoLists:
  *   post:
  *     summary: Create a new todo list
+ *     security:
+ *       - bearerAuth: []
  *     tags:
  *       - TodoList
  *     requestBody:
@@ -43,6 +45,8 @@ todoListRouter.post('/', authenticator, todoListController.createTodoListHandler
  *   get:
  *     summary: Get all todoLists
  *     description: Retrieve a list of all todoLists.
+ *     security:
+ *       - bearerAuth: []
  *     tags:
  *       - TodoList
  *     responses:
@@ -65,6 +69,8 @@ todoListRouter.get('/', authenticator, todoListController.getTodoListsHandler)
  * /todoLists/{id}:
  *   get:
  *     summary: Get a todo list by ID
+ *     security:
+ *       - bearerAuth: []
  *     tags:
  *       - TodoList
  *     parameters:
@@ -87,6 +93,8 @@ todoListRouter.get('/:id', authenticator, todoListController.getTodoListByIdHand
  * /todoLists/{id}:
  *   put:
  *     summary: Update a todo list by ID
+ *     security:
+ *       - bearerAuth: []
  *     tags:
  *       - TodoList
  *     parameters:
@@ -121,6 +129,8 @@ todoListRouter.put('/:id', authenticator, todoListController.updateTodoListHandl
  * /todoLists/{id}:
  *   delete:
  *     summary: Delete a todo list by ID
+ *     security:
+ *       - bearerAuth: []
  *     tags:
  *       - TodoList
  *     parameters:
