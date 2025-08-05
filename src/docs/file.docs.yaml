@@ -1,0 +1,110 @@
+components:
+  schemas:
+    File:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The auto-generated metadata id of the file.
+        gridfsId:
+          type: string
+          description: The id of the file content in GridFS.
+        filename:
+          type: string
+          description: The name of the uploaded file.
+        contentType:
+          type: string
+          description: The MIME type of the file.
+        length:
+          type: number
+          description: The size of the file in bytes.
+        uploadDate:
+          type: string
+          format: date-time
+          description: The original upload timestamp from GridFS.
+        createdAt:
+          type: string
+          format: date-time
+          description: The time the metadata was created.
+        updatedAt:
+          type: string
+          format: date-time
+          description: The time the metadata was last updated.
+
+paths:
+  /files:
+    post:
+      summary: Upload a new file
+      tags: [File]
+      consumes:
+        - multipart/form-data
+      parameters:
+        - in: formData
+          name: file
+          type: file
+          required: true
+          description: The file to upload.
+        - in: formData
+          name: todoItemId
+          type: string
+          required: true
+          description: The ID of the TodoItem to link this file to.
+      responses:
+        '201':
+          description: File uploaded successfully. Returns file metadata.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/File'
+        '400':
+          description: Bad request. File is required.
+        '404':
+          description: TodoItem with the given ID was not found.
+    get:
+      summary: Get metadata for all files
+      tags: [File]
+      responses:
+        '200':
+          description: A list of file metadata objects.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/File'
+
+  /files/{id}/download:
+    get:
+      summary: Download a file by its metadata ID
+      tags: [File]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The metadata ID of the file.
+      responses:
+        '200':
+          description: The file content.
+          content:
+            application/octet-stream: {}
+        '404':
+          description: File not found.
+
+  /files/{id}:
+    delete:
+      summary: Delete a file by its metadata ID
+      tags: [File]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The metadata ID of the file.
+      responses:
+        '200':
+          description: File deleted successfully.
+        '404':
+          description: File not found.

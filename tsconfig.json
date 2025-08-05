@@ -11,7 +11,8 @@
     "rootDir": "src",                 // Gốc mã nguồn
     "resolveJsonModule": true,        // Cho phép import JSON (ví dụ config)
     "allowSyntheticDefaultImports": true, // Giúp import default từ CommonJS
-    "noImplicitAny": true             // Không cho phép kiểu `any` ngầm định
+    "noImplicitAny": true,            // Không cho phép kiểu `any` ngầm định
+    "typeRoots": ["./node_modules/@types", "./src/types"]
   },
   "include": ["src"],
   "exclude": ["node_modules"]

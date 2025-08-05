@@ -6,6 +6,7 @@ export interface ITodoItem extends Document {
   des: string;
   due_at: Date;
   status: string;
+  files: mongoose.Types.ObjectId[];
   createdAt: Date;
   updatedAt: Date;
 }
@@ -17,6 +18,9 @@ const TodoItemSchema = new Schema<ITodoItem>(
     des: { type: String },
     due_at: { type: Date, required: true },
     status: { type: String, required: true },
+    files: [
+      { type: Schema.Types.ObjectId, ref: 'File' }
+    ],
   },
   { timestamps: true }
 );

@@ -14,14 +14,16 @@ import { ErrorRequestHandler } from "express-serve-static-core"
  * @param res - The Express response object.
  * @param next - The next middleware function in the stack.
  */
-export const  errorHandlerMiddleware: ErrorRequestHandler = (err: Error, req: Request, res: Response, next: NextFunction) => {
-    if (err instanceof AppError) {
-      res.status(Number((err as AppError).statusCode)).json({
-          message: err.message
-      })
-    } else {
-      res.status(500).json({
-          message: "System Error"
-      })
-    }
+export const errorHandlerMiddleware: ErrorRequestHandler = (err: Error, req: Request, res: Response, next: NextFunction) => {
+  if (err instanceof AppError) {
+    res.status(Number((err as AppError).statusCode)).json({
+      message: err.message
+    })
+  } else {
+    res.status(500).json({
+      message: 'An internal server error occurred',
+      // Only show the error in development for security reasons
+      error: process.env.NODE_ENV === 'development' ? err.message : undefined,
+    })
+  }
 }

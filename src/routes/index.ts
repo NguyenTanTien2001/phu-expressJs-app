@@ -5,6 +5,7 @@ import userRouter from "./user.router";
 import todoItemRouter from "./todoItem.router";
 import todoListRouter from "./todoList.router";
 import accountRouter from "./account.router";
+import fileRouter from "./file.router";
 
 const indexRouter = Router()
 
@@ -14,5 +15,6 @@ indexRouter.use('/users', userRouter)
 indexRouter.use('/todoItems', todoItemRouter)
 indexRouter.use('/todoLists', todoListRouter)
 indexRouter.use('/accounts', accountRouter)
+indexRouter.use('/files', fileRouter)
 
 export default indexRouter
