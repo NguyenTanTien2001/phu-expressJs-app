@@ -3,12 +3,18 @@ import * as TodoListService from '../services/todoList.service';
 
 export const createTodoListHandler = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { name, user_id, status } = req.body;
-    const todoList = await TodoListService.createTodoList(name, user_id, status);
+    const { name, status } = req.body;
+    const userId = req.user?.userId;
+
+    if (!userId) {
+      return res.status(401).json({ error: 'User could not be identified from token.' });
+    }
+    
+    const todoList = await TodoListService.createTodoList(name, userId, status);
     res.status(201).json(todoList);
   } catch (error) {
     console.log("error ==> ", error);
-    next(error)
+    next(error);
   }
 };
 

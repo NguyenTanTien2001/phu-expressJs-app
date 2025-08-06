@@ -7,6 +7,8 @@ import {
     updateAccountHandler,
     deleteAccountHandler,
 } from '../controllers/account.controller';
+import { validate } from "../middlewares/validateResource";
+import { loginAccountSchema, registerAccountSchema, updateAccountSchema } from "../schemas/account.schema";
 
 const router = Router();
 
@@ -62,7 +64,7 @@ const router = Router();
  *       400:
  *         description: Invalid input
  */
-router.post('/', registerAccountHandler);
+router.post('/', validate(registerAccountSchema), registerAccountHandler);
 
 /**
  * @openapi
@@ -105,7 +107,7 @@ router.post('/', registerAccountHandler);
  *       400:
  *         description: Missing username or password
  */
-router.post('/login', loginAccountHandler);
+router.post('/login', validate(loginAccountSchema), loginAccountHandler);
 
 /**
  * @openapi
@@ -185,7 +187,7 @@ router.get('/:id', getAccountByIdHandler);
  *       400:
  *         description: Invalid input
  */
-router.put('/:id', updateAccountHandler);
+router.put('/:id', validate(updateAccountSchema), updateAccountHandler);
 
 /**
  * @openapi

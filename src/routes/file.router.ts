@@ -7,6 +7,8 @@ import {
   deleteFileHandler,
 } from '../controllers/file.controller';
 import { authenticator } from '../middlewares/auth'; // Assuming auth middleware exists
+import { fileActionParamsSchema, uploadFileSchema } from '../schemas/file.schema';
+import { validate } from '../middlewares/validateResource';
 
 const fileRouter = Router();
 
@@ -53,7 +55,7 @@ const upload = multer({ storage: storage });
  *       401:
  *         description: Unauthorized.
  */
-fileRouter.post('/', authenticator, upload.single('file'), uploadFileHandler);
+fileRouter.post('/', authenticator, upload.single('file'), validate(uploadFileSchema), uploadFileHandler);
 
 /**
  * @openapi
@@ -107,7 +109,7 @@ fileRouter.get('/', authenticator, getFilesHandler);
  *       404:
  *         description: File not found.
  */
-fileRouter.get('/:id/download', authenticator, downloadFileHandler);
+fileRouter.get('/:id/download', authenticator, validate(fileActionParamsSchema), downloadFileHandler);
 
 /**
  * @openapi
@@ -144,6 +146,6 @@ fileRouter.get('/:id/download', authenticator, downloadFileHandler);
  *       404:
  *         description: File not found.
  */
-fileRouter.delete('/:id', authenticator, deleteFileHandler);
+fileRouter.delete('/:id', authenticator, validate(fileActionParamsSchema), deleteFileHandler);
 
 export default fileRouter;

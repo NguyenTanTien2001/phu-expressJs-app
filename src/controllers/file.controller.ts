@@ -3,6 +3,7 @@ import * as FileService from '../services/file.service';
 
 export const uploadFileHandler = async (req: Request, res: Response, next: NextFunction) => {
   try {
+    console.log(req);
     const { todoItemId } = req.body;
 
     if (!req.file) {
@@ -41,7 +42,7 @@ export const downloadFileHandler = async (req: Request, res: Response, next: Nex
 
     // Set headers using the RELIABLE metadata from our database
     res.set('Content-Type', fileMeta.contentType);
-    res.set('Content-Disposition', `inline; filename="${fileMeta.filename}"`);
+    res.set('Content-Disposition', `inline; filename="${fileMeta.filename}"`); // Change to "attachment" when want to download
 
     // Listen for errors on the stream and pass them to the error handler
     stream.on('error', (err) => {

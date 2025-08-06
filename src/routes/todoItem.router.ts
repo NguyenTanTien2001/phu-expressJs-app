@@ -2,6 +2,8 @@
 import { Router } from "express";
 import * as todoItemController from '../controllers/todoItem.controller'
 import { authenticator } from '../middlewares/auth';
+import { validate } from "../middlewares/validateResource";
+import { createTodoSchema, updateTodoSchema } from "../schemas/todoItem.schema";
 
 const todoItemRouter = Router()
 
@@ -43,7 +45,7 @@ const todoItemRouter = Router()
  *       400:
  *         description: Invalid input
  */
-todoItemRouter.post('/', authenticator, todoItemController.createTodoItemHandler)
+todoItemRouter.post('/', authenticator, validate(createTodoSchema), todoItemController.createTodoItemHandler)
 
 /**
  * @openapi
@@ -135,7 +137,7 @@ todoItemRouter.get('/:id', authenticator, todoItemController.getTodoItemByIdHand
  *         description: Todo item not found
  */
 
-todoItemRouter.put('/:id', authenticator, todoItemController.updateTodoItemHandler);
+todoItemRouter.put('/:id', authenticator, validate(updateTodoSchema), todoItemController.updateTodoItemHandler);
 
 /**
  * @openapi

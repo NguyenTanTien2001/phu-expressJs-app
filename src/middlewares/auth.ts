@@ -1,6 +1,7 @@
 // src/middlewares/auth.middleware.ts
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
+import { isCustomJWTPayload } from '../types/jwt.payload';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your_default_secret';
 
@@ -22,9 +23,14 @@ export const authenticator = (
   const token = authHeader.split(' ')[1];
 
   try {
-    const decoded = jwt.verify(token, JWT_SECRET) as { userId: string };
-    req.userId = decoded.userId;
-    next();
+    const decodedPayload = jwt.verify(token, JWT_SECRET);
+
+    if (isCustomJWTPayload(decodedPayload)) {
+      req.user = decodedPayload;
+      next();
+    } else {
+      res.status(403).json({ error: 'Forbidden: Token payload is malformed' });
+    }
   } catch (error) {
     return res.status(401).json({ error: 'Unauthorized - Invalid token' });
   }

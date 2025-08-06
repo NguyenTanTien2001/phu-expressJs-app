@@ -1,6 +1,8 @@
 
 import { Router } from "express";
 import * as userController from '../controllers/user.controller'
+import { validate } from "../middlewares/validateResource";
+import { createUserSchema, updateUserSchema } from "../schemas/user.schema";
 
 const userRouter = Router()
 
@@ -42,7 +44,7 @@ const userRouter = Router()
  *         description: Internal server error
  */
 
-userRouter.post('/', userController.createUserHandler)
+userRouter.post('/', validate(createUserSchema), userController.createUserHandler)
 
 /**
  * @openapi
@@ -141,7 +143,7 @@ userRouter.get('/:id', userController.getUserByIdHandler)
  *         description: Invalid input
  */
 
-userRouter.put('/:id', userController.updateUserHandler)
+userRouter.put('/:id', validate(updateUserSchema), userController.updateUserHandler)
 
 /**
  * @openapi

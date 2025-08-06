@@ -2,6 +2,8 @@
 import { Router } from "express";
 import * as todoListController from '../controllers/todoList.controller'
 import { authenticator } from '../middlewares/auth';
+import { validate } from "../middlewares/validateResource";
+import { createTodoListSchema, updateTodoListSchema } from "../schemas/todoList.schema";
 
 const todoListRouter = Router()
 
@@ -22,12 +24,9 @@ const todoListRouter = Router()
  *             type: object
  *             required:
  *               - name
- *               - user_id
  *               - status
  *             properties:
  *               name:
- *                 type: string
- *               user_id:
  *                 type: string
  *               status:
  *                 type: string
@@ -37,7 +36,7 @@ const todoListRouter = Router()
  *       400:
  *         description: Invalid input
  */
-todoListRouter.post('/', authenticator, todoListController.createTodoListHandler)
+todoListRouter.post('/', authenticator, validate(createTodoListSchema), todoListController.createTodoListHandler)
 
 /**
  * @openapi
@@ -122,7 +121,7 @@ todoListRouter.get('/:id', authenticator, todoListController.getTodoListByIdHand
  *       404:
  *         description: Todo list not found
  */
-todoListRouter.put('/:id', authenticator, todoListController.updateTodoListHandler);
+todoListRouter.put('/:id', authenticator, validate(updateTodoListSchema), todoListController.updateTodoListHandler);
 
 /**
  * @openapi
